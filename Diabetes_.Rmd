@@ -1,0 +1,91 @@
+---
+title: "Diabetes_Project1"
+output: html_document
+date: "2023-02-27"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+install.packages("readr")
+library(readr)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+
+getwd()
+setwd("/Users/srivarshini/Downloads/")
+diabetes<-read_csv("diabetes_binary_5050split_health_indicators_BRFSS20.csv")
+summary(diabetes)
+names(diabetes)
+dim(diabetes)
+head(diabetes, n=10)
+colnames(diabetes)
+
+```
+
+         
+```{r}
+
+summary(diabetes)
+#diabetes$Diabetes_binary <- as.factor(diabetes$Diabetes_binary)
+#diabetes$HighBP <- as.factor(diabetes$HighBP)
+#diabetes$HighChol <- as.factor(diabetes$HighChol)
+#diabetes$CholCheck <- as.factor(diabetes$CholCheck)
+#diabetes$BMI <- as.factor(diabetes$BMI)
+#diabetes$Smoker <- as.factor(diabetes$Smoker)
+#diabetes$Stroke <- as.factor(diabetes$Stroke)
+#diabetes$HeartDiseaseorAttack <- as.factor(diabetes$HeartDiseaseorAttack)
+#diabetes$PhysActivity <- as.factor(diabetes$PhysActivity)
+#diabetes$Fruits <- as.factor(diabetes$Fruits)
+#diabetes$Veggies <- as.factor(diabetes$Veggies)
+#diabetes$HvyAlcoholConsump <- as.factor(diabetes$HvyAlcoholConsump)
+#diabetes$AnyHealthcare <- as.factor(diabetes$AnyHealthcare)
+#diabetes$NoDocbcCost <- as.factor(diabetes$NoDocbcCost)
+#diabetes$GenHlth <- as.factor(diabetes$GenHlth)
+#diabetes$PhysHlth <- as.factor(diabetes$PhysHlth)
+#diabetes$DiffWalk <- as.factor(diabetes$DiffWalk)
+#diabetes$Sex <- as.factor(diabetes$Sex)
+#diabetes$Age <- as.factor(diabetes$Age)
+#diabetes$Education <- as.factor(diabetes$Education)
+#diabetes$Income <- as.factor(diabetes$Income)
+summary(diabetes)
+
+
+
+sapply(diabetes, mean, na.rm=TRUE)
+median(diabetes$Diabetes_binary)
+
+
+
+```
+         
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+
+
+
+library(ggplot2)
+highbp1 <- ggplot(data = diabetes, aes(x = factor(HighBP), fill=factor(diabetes))) +
+      geom_bar(stat = "count", position=position_dodge(),width = 0.5, color = "black")+
+      labs(title = "High blood pressure distribution", x = "have high blood pressure (0=no, 1=yes)") +
+      theme(plot.title = element_text(face = "bold", hjust = 0.5))+
+      guides(fill = guide_legend(title = "Diabetes")) +
+      scale_fill_manual(values=cbPalette)
+    
+highbp1
+show(highbp1)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
